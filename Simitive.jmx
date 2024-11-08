@@ -47,263 +47,6 @@
           </collectionProp>
         </HeaderManager>
         <hashTree/>
-        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Permission" enabled="false"/>
-        <hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Permissions-GET-ALL" enabled="true">
-            <stringProp name="HTTPSampler.path">/wams/api/permissions</stringProp>
-            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-            <stringProp name="HTTPSampler.method">GET</stringProp>
-            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-            <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
-            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
-              <collectionProp name="Arguments.arguments">
-                <elementProp name="context" elementType="HTTPArgument">
-                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                  <stringProp name="Argument.value">global</stringProp>
-                  <stringProp name="Argument.metadata">=</stringProp>
-                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                  <stringProp name="Argument.name">context</stringProp>
-                </elementProp>
-                <elementProp name="pagination" elementType="HTTPArgument">
-                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                  <stringProp name="Argument.value">false</stringProp>
-                  <stringProp name="Argument.metadata">=</stringProp>
-                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                  <stringProp name="Argument.name">pagination</stringProp>
-                </elementProp>
-              </collectionProp>
-            </elementProp>
-          </HTTPSamplerProxy>
-          <hashTree>
-            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Extract Permissions" enabled="true">
-              <stringProp name="JSONPostProcessor.referenceNames">permissionId</stringProp>
-              <stringProp name="JSONPostProcessor.jsonPathExprs">$.items[*].id</stringProp>
-              <stringProp name="JSONPostProcessor.match_numbers">-1</stringProp>
-            </JSONPostProcessor>
-            <hashTree/>
-          </hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Permissions-GET-ONE " enabled="true">
-            <stringProp name="HTTPSampler.path">/wams/api/permissions/${permissionId_1}</stringProp>
-            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-            <stringProp name="HTTPSampler.method">GET</stringProp>
-            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-            <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
-            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
-              <collectionProp name="Arguments.arguments"/>
-            </elementProp>
-          </HTTPSamplerProxy>
-          <hashTree/>
-        </hashTree>
-        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="PermissionSet" enabled="false"/>
-        <hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="PermissionSets-GET-ALL" enabled="true">
-            <stringProp name="HTTPSampler.path">/wams/api/permission-sets</stringProp>
-            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-            <stringProp name="HTTPSampler.method">GET</stringProp>
-            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-            <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
-            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
-              <collectionProp name="Arguments.arguments"/>
-            </elementProp>
-          </HTTPSamplerProxy>
-          <hashTree/>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="PermissionSets-POST" enabled="true">
-            <stringProp name="HTTPSampler.path">/wams/api/permission-sets</stringProp>
-            <stringProp name="HTTPSampler.method">POST</stringProp>
-            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
-            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
-              <collectionProp name="Arguments.arguments">
-                <elementProp name="" elementType="HTTPArgument">
-                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                  <stringProp name="Argument.value">{&#xd;
-   &quot;code&quot;:&quot;NEW_JMETER_CODE&quot;,&#xd;
-   &quot;name&quot;:&quot;New JMeter Name&quot;,&#xd;
-   &quot;context&quot;:&quot;global&quot;,&#xd;
-   &quot;permissions&quot;:${permissionIdsArray}&#xd;
-}</stringProp>
-                  <stringProp name="Argument.metadata">=</stringProp>
-                </elementProp>
-              </collectionProp>
-            </elementProp>
-          </HTTPSamplerProxy>
-          <hashTree>
-            <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="JSR223 PreProcessor" enabled="true">
-              <stringProp name="cacheKey">true</stringProp>
-              <stringProp name="filename"></stringProp>
-              <stringProp name="parameters"></stringProp>
-              <stringProp name="script">def permissionIds = []
-def index = 1
-while(vars.get(&quot;permissionId_&quot; + index) != null) {
-    permissionIds.add(&apos;&quot;&apos; + vars.get(&quot;permissionId_&quot; + index) + &apos;&quot;&apos;)
-    index++
-}
-def formattedIdsArray = &quot;[&quot; + permissionIds.join(&quot;, &quot;) + &quot;]&quot;
-vars.put(&quot;permissionIdsArray&quot;, formattedIdsArray)
-</stringProp>
-              <stringProp name="scriptLanguage">groovy</stringProp>
-            </JSR223PreProcessor>
-            <hashTree/>
-            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Get Extract Permission Set ID" enabled="true">
-              <stringProp name="JSONPostProcessor.referenceNames">permissionSetId</stringProp>
-              <stringProp name="JSONPostProcessor.jsonPathExprs">$.id</stringProp>
-              <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
-            </JSONPostProcessor>
-            <hashTree/>
-          </hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="PermissionSets-GET-ONE" enabled="true">
-            <stringProp name="HTTPSampler.path">/wams/api/permission-sets/${permissionSetId}</stringProp>
-            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-            <stringProp name="HTTPSampler.method">GET</stringProp>
-            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-            <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
-            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
-              <collectionProp name="Arguments.arguments"/>
-            </elementProp>
-          </HTTPSamplerProxy>
-          <hashTree/>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="PermissionSets-PUT" enabled="true">
-            <stringProp name="HTTPSampler.path">/wams/api/permission-sets/${permissionSetId}</stringProp>
-            <stringProp name="HTTPSampler.method">PUT</stringProp>
-            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
-            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
-              <collectionProp name="Arguments.arguments">
-                <elementProp name="" elementType="HTTPArgument">
-                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                  <stringProp name="Argument.value">{&#xd;
-   &quot;code&quot;:&quot;NEW_JMETER_CODE_UPDATED&quot;,&#xd;
-   &quot;name&quot;:&quot;New JMeter Name Updated&quot;,&#xd;
-   &quot;context&quot;:&quot;global&quot;,&#xd;
-   &quot;permissions&quot;:${permissionIdsArray}&#xd;
-}</stringProp>
-                  <stringProp name="Argument.metadata">=</stringProp>
-                </elementProp>
-              </collectionProp>
-            </elementProp>
-          </HTTPSamplerProxy>
-          <hashTree/>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="PermissionSets-DELETE" enabled="true">
-            <stringProp name="HTTPSampler.path">/wams/api/permission-sets/${permissionSetId}</stringProp>
-            <stringProp name="HTTPSampler.method">DELETE</stringProp>
-            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-            <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
-            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
-              <collectionProp name="Arguments.arguments"/>
-            </elementProp>
-          </HTTPSamplerProxy>
-          <hashTree/>
-        </hashTree>
-        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Language" enabled="false"/>
-        <hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Languages-GET-ALL" enabled="true">
-            <stringProp name="HTTPSampler.path">/wams/api/languages</stringProp>
-            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-            <stringProp name="HTTPSampler.method">GET</stringProp>
-            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-            <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
-            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
-              <collectionProp name="Arguments.arguments">
-                <elementProp name="pagination" elementType="HTTPArgument">
-                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                  <stringProp name="Argument.value">false</stringProp>
-                  <stringProp name="Argument.metadata">=</stringProp>
-                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                  <stringProp name="Argument.name">pagination</stringProp>
-                </elementProp>
-              </collectionProp>
-            </elementProp>
-          </HTTPSamplerProxy>
-          <hashTree/>
-        </hashTree>
-        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Translation" enabled="false"/>
-        <hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Translations-GET-ALL" enabled="true">
-            <stringProp name="HTTPSampler.path">/wams/api/translations</stringProp>
-            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-            <stringProp name="HTTPSampler.method">GET</stringProp>
-            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-            <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
-            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
-              <collectionProp name="Arguments.arguments"/>
-            </elementProp>
-          </HTTPSamplerProxy>
-          <hashTree>
-            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Get Extract Translation ID" enabled="true">
-              <stringProp name="JSONPostProcessor.referenceNames">translationId</stringProp>
-              <stringProp name="JSONPostProcessor.jsonPathExprs">$.items[*].id</stringProp>
-              <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
-            </JSONPostProcessor>
-            <hashTree/>
-          </hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Translations-GET-ONE" enabled="true">
-            <stringProp name="HTTPSampler.path">/wams/api/translations/${translationId}</stringProp>
-            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-            <stringProp name="HTTPSampler.method">GET</stringProp>
-            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-            <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
-            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
-              <collectionProp name="Arguments.arguments"/>
-            </elementProp>
-          </HTTPSamplerProxy>
-          <hashTree/>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Translations-PUT" enabled="true">
-            <stringProp name="HTTPSampler.path">/wams/api/translations/${translationId}</stringProp>
-            <stringProp name="HTTPSampler.method">PUT</stringProp>
-            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
-            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
-              <collectionProp name="Arguments.arguments">
-                <elementProp name="" elementType="HTTPArgument">
-                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                  <stringProp name="Argument.value">{	&#xd;
-	&quot;value&quot;: &quot;Value Updated&quot;&#xd;
-}</stringProp>
-                  <stringProp name="Argument.metadata">=</stringProp>
-                </elementProp>
-              </collectionProp>
-            </elementProp>
-          </HTTPSamplerProxy>
-          <hashTree/>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Translations-Revert-All" enabled="true">
-            <stringProp name="HTTPSampler.path">/wams/api/translations/revert-all?language=en-GB</stringProp>
-            <stringProp name="HTTPSampler.method">POST</stringProp>
-            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-            <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
-            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
-              <collectionProp name="Arguments.arguments"/>
-            </elementProp>
-          </HTTPSamplerProxy>
-          <hashTree/>
-        </hashTree>
-        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="AuditLog" enabled="false"/>
-        <hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="AuditLogs-GET-ALL" enabled="true">
-            <stringProp name="HTTPSampler.path">/wams/api/audit-logs</stringProp>
-            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-            <stringProp name="HTTPSampler.method">GET</stringProp>
-            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-            <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
-            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
-              <collectionProp name="Arguments.arguments"/>
-            </elementProp>
-          </HTTPSamplerProxy>
-          <hashTree/>
-        </hashTree>
-        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="AuthenticationLog" enabled="false"/>
-        <hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="AuthenticationLogs-GET-ALL" enabled="true">
-            <stringProp name="HTTPSampler.path">/wams/api/authentication-logs</stringProp>
-            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-            <stringProp name="HTTPSampler.method">GET</stringProp>
-            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-            <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
-            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
-              <collectionProp name="Arguments.arguments"/>
-            </elementProp>
-          </HTTPSamplerProxy>
-          <hashTree/>
-        </hashTree>
         <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="PeriodVersion" enabled="false"/>
         <hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="PeriodVersion-GET-ALL" enabled="true">
@@ -425,7 +168,7 @@ vars.put(&quot;permissionIdsArray&quot;, formattedIdsArray)
         </hashTree>
         <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Users" enabled="false"/>
         <hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="get-all-users" enabled="true">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="get-all-users">
             <stringProp name="HTTPSampler.path">/wams/api/users</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <stringProp name="HTTPSampler.method">GET</stringProp>
@@ -436,7 +179,7 @@ vars.put(&quot;permissionIdsArray&quot;, formattedIdsArray)
             </elementProp>
           </HTTPSamplerProxy>
           <hashTree/>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="post-user" enabled="true">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="post-user">
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <stringProp name="HTTPSampler.method">POST</stringProp>
             <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
@@ -484,7 +227,7 @@ vars.put(&quot;permissionIdsArray&quot;, formattedIdsArray)
           <stringProp name="filename"></stringProp>
         </ResultCollector>
         <hashTree/>
-        <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="Constant Timer">
+        <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="Constant Timer" enabled="true">
           <stringProp name="ConstantTimer.delay">300</stringProp>
         </ConstantTimer>
         <hashTree/>
@@ -525,7 +268,7 @@ vars.put(&quot;permissionIdsArray&quot;, formattedIdsArray)
           <stringProp name="filename"></stringProp>
         </ResultCollector>
         <hashTree/>
-        <ResultCollector guiclass="StatVisualizer" testclass="ResultCollector" testname="Aggregate Report">
+        <ResultCollector guiclass="StatVisualizer" testclass="ResultCollector" testname="Aggregate Report" enabled="true">
           <boolProp name="ResultCollector.error_logging">false</boolProp>
           <objProp>
             <name>saveConfig</name>
@@ -566,9 +309,9 @@ vars.put(&quot;permissionIdsArray&quot;, formattedIdsArray)
           <stringProp name="TestPlan.comments">Tag set</stringProp>
         </GenericController>
         <hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Pre-Conditions"/>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Pre-Conditions" enabled="true"/>
           <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="TagSetBulk1-POST">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="TagSetBulk1-POST" enabled="true">
               <stringProp name="HTTPSampler.path">/wams/api/tag-sets</stringProp>
               <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
               <stringProp name="HTTPSampler.method">POST</stringProp>
@@ -592,7 +335,7 @@ vars.put(&quot;permissionIdsArray&quot;, formattedIdsArray)
               </elementProp>
             </HTTPSamplerProxy>
             <hashTree/>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="TagSetBulk2-POST">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="TagSetBulk2-POST" enabled="true">
               <stringProp name="HTTPSampler.path">/wams/api/tag-sets</stringProp>
               <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
               <stringProp name="HTTPSampler.method">POST</stringProp>
@@ -616,7 +359,7 @@ vars.put(&quot;permissionIdsArray&quot;, formattedIdsArray)
               </elementProp>
             </HTTPSamplerProxy>
             <hashTree/>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get TagSet Targets Ids">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get TagSet Targets Ids" enabled="true">
               <stringProp name="HTTPSampler.path">/wams/api/tag-set-targets</stringProp>
               <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
               <stringProp name="HTTPSampler.method">GET</stringProp>
@@ -635,7 +378,7 @@ vars.put(&quot;permissionIdsArray&quot;, formattedIdsArray)
               </elementProp>
             </HTTPSamplerProxy>
             <hashTree>
-              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Get Extract TagSet Target Id">
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Get Extract TagSet Target Id" enabled="true">
                 <stringProp name="JSONPostProcessor.referenceNames">targetId</stringProp>
                 <stringProp name="JSONPostProcessor.jsonPathExprs">$.items[0].id</stringProp>
                 <stringProp name="JSONPostProcessor.match_numbers">+1</stringProp>
@@ -643,7 +386,7 @@ vars.put(&quot;permissionIdsArray&quot;, formattedIdsArray)
               <hashTree/>
             </hashTree>
           </hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="TagSet-GET-ALL">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="TagSet-GET-ALL" enabled="true">
             <stringProp name="HTTPSampler.path">/wams/api/tag-sets</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <stringProp name="HTTPSampler.method">GET</stringProp>
@@ -669,14 +412,14 @@ vars.put(&quot;permissionIdsArray&quot;, formattedIdsArray)
             </elementProp>
           </HTTPSamplerProxy>
           <hashTree>
-            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Get Extract TagSet Ids">
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Get Extract TagSet Ids" enabled="true">
               <stringProp name="JSONPostProcessor.referenceNames">tagSetIds</stringProp>
               <stringProp name="JSONPostProcessor.jsonPathExprs">$.items[*].id</stringProp>
               <stringProp name="JSONPostProcessor.match_numbers">-1</stringProp>
             </JSONPostProcessor>
             <hashTree/>
           </hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="TagSet-POST">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="TagSet-POST" enabled="true">
             <stringProp name="HTTPSampler.path">/wams/api/tag-sets</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <stringProp name="HTTPSampler.method">POST</stringProp>
@@ -707,7 +450,7 @@ vars.put(&quot;permissionIdsArray&quot;, formattedIdsArray)
             </JSONPostProcessor>
             <hashTree/>
           </hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="TagSet-GET-ONE">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="TagSet-GET-ONE" enabled="true">
             <stringProp name="HTTPSampler.path">/wams/api/tag-sets/${tagSetId}</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <stringProp name="HTTPSampler.method">GET</stringProp>
@@ -718,7 +461,7 @@ vars.put(&quot;permissionIdsArray&quot;, formattedIdsArray)
             </elementProp>
           </HTTPSamplerProxy>
           <hashTree/>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="TagSet-PUT">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="TagSet-PUT" enabled="true">
             <stringProp name="HTTPSampler.path">/wams/api/tag-sets/${tagSetId}</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <stringProp name="HTTPSampler.method">PUT</stringProp>
@@ -738,7 +481,7 @@ vars.put(&quot;permissionIdsArray&quot;, formattedIdsArray)
             </elementProp>
           </HTTPSamplerProxy>
           <hashTree/>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="TagSet-DELETE">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="TagSet-DELETE" enabled="true">
             <stringProp name="HTTPSampler.path">/wams/api/tag-sets/${tagSetId}</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <stringProp name="HTTPSampler.method">DELETE</stringProp>
@@ -785,7 +528,7 @@ vars.put(&quot;permissionIdsArray&quot;, formattedIdsArray)
             </elementProp>
           </HTTPSamplerProxy>
           <hashTree/>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="TagSet - BULK DELETE">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="TagSet - BULK DELETE" enabled="true">
             <stringProp name="HTTPSampler.path">/wams/api/tag-sets/bulk-delete</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <stringProp name="HTTPSampler.method">POST</stringProp>
@@ -818,9 +561,9 @@ vars.put(&quot;permissionIdsArray&quot;, formattedIdsArray)
           <stringProp name="TestPlan.comments">Tags</stringProp>
         </GenericController>
         <hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Pre-Conditions"/>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Pre-Conditions" enabled="true"/>
           <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="TagSet-POST">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="TagSet-POST" enabled="true">
               <stringProp name="HTTPSampler.path">/wams/api/tag-sets</stringProp>
               <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
               <stringProp name="HTTPSampler.method">POST</stringProp>
@@ -844,14 +587,14 @@ vars.put(&quot;permissionIdsArray&quot;, formattedIdsArray)
               </elementProp>
             </HTTPSamplerProxy>
             <hashTree>
-              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Get Extract TagSetId">
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Get Extract TagSetId" enabled="true">
                 <stringProp name="JSONPostProcessor.referenceNames">tagSetId-tag</stringProp>
                 <stringProp name="JSONPostProcessor.jsonPathExprs">$.id</stringProp>
                 <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
               </JSONPostProcessor>
               <hashTree/>
             </hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Tags Bulk1-POST">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Tags Bulk1-POST" enabled="true">
               <stringProp name="HTTPSampler.path">/wams/api/tags</stringProp>
               <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
               <stringProp name="HTTPSampler.method">POST</stringProp>
@@ -874,7 +617,7 @@ vars.put(&quot;permissionIdsArray&quot;, formattedIdsArray)
               </elementProp>
             </HTTPSamplerProxy>
             <hashTree/>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Tags Bulk2-POST">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Tags Bulk2-POST" enabled="true">
               <stringProp name="HTTPSampler.path">/wams/api/tags</stringProp>
               <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
               <stringProp name="HTTPSampler.method">POST</stringProp>
@@ -898,7 +641,7 @@ vars.put(&quot;permissionIdsArray&quot;, formattedIdsArray)
             </HTTPSamplerProxy>
             <hashTree/>
           </hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Tags-GET-ALL">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Tags-GET-ALL" enabled="true">
             <stringProp name="HTTPSampler.path">/wams/api/tags</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <stringProp name="HTTPSampler.method">GET</stringProp>
@@ -931,7 +674,7 @@ vars.put(&quot;permissionIdsArray&quot;, formattedIdsArray)
             </JSONPostProcessor>
             <hashTree/>
           </hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Tags-POST">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Tags-POST" enabled="true">
             <stringProp name="HTTPSampler.path">/wams/api/tags</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <stringProp name="HTTPSampler.method">POST</stringProp>
@@ -954,14 +697,14 @@ vars.put(&quot;permissionIdsArray&quot;, formattedIdsArray)
             </elementProp>
           </HTTPSamplerProxy>
           <hashTree>
-            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Get Extract Tag ID">
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Get Extract Tag ID" enabled="true">
               <stringProp name="JSONPostProcessor.referenceNames">tagId</stringProp>
               <stringProp name="JSONPostProcessor.jsonPathExprs">$.id</stringProp>
               <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
             </JSONPostProcessor>
             <hashTree/>
           </hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Tags-GET-ONE">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Tags-GET-ONE" enabled="true">
             <stringProp name="HTTPSampler.path">/wams/api/tags/${tagId}</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <stringProp name="HTTPSampler.method">GET</stringProp>
@@ -972,7 +715,7 @@ vars.put(&quot;permissionIdsArray&quot;, formattedIdsArray)
             </elementProp>
           </HTTPSamplerProxy>
           <hashTree/>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Tags-PUT">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Tags-PUT" enabled="true">
             <stringProp name="HTTPSampler.path">/wams/api/tags/${tagId}</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <stringProp name="HTTPSampler.method">PUT</stringProp>
@@ -992,7 +735,7 @@ vars.put(&quot;permissionIdsArray&quot;, formattedIdsArray)
             </elementProp>
           </HTTPSamplerProxy>
           <hashTree/>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Tags-DELETE">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Tags-DELETE" enabled="true">
             <stringProp name="HTTPSampler.path">/wams/api/tags/${tagId}</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <stringProp name="HTTPSampler.method">DELETE</stringProp>
@@ -1003,7 +746,7 @@ vars.put(&quot;permissionIdsArray&quot;, formattedIdsArray)
             </elementProp>
           </HTTPSamplerProxy>
           <hashTree/>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Tags - BULK UPDATE">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Tags - BULK UPDATE" enabled="true">
             <stringProp name="HTTPSampler.path">/wams/api/tags/bulk-update</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <stringProp name="HTTPSampler.method">POST</stringProp>
@@ -1037,7 +780,7 @@ vars.put(&quot;permissionIdsArray&quot;, formattedIdsArray)
             </elementProp>
           </HTTPSamplerProxy>
           <hashTree/>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Tags - BULK DELETE">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Tags - BULK DELETE" enabled="true">
             <stringProp name="HTTPSampler.path">/wams/api/tags/bulk-delete</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <stringProp name="HTTPSampler.method">POST</stringProp>
@@ -1065,9 +808,9 @@ vars.put(&quot;permissionIdsArray&quot;, formattedIdsArray)
             </elementProp>
           </HTTPSamplerProxy>
           <hashTree/>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Post-Conditions"/>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Post-Conditions" enabled="true"/>
           <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="TagSet-DELETE">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="TagSet-DELETE" enabled="true">
               <stringProp name="HTTPSampler.path">/wams/api/tag-sets/${tagSetId-tag}</stringProp>
               <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
               <stringProp name="HTTPSampler.method">DELETE</stringProp>
@@ -1084,7 +827,7 @@ vars.put(&quot;permissionIdsArray&quot;, formattedIdsArray)
           <stringProp name="TestPlan.comments">AllocationQuestions</stringProp>
         </GenericController>
         <hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="AllocationQuestions-GET-ALL">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="AllocationQuestions-GET-ALL" enabled="true">
             <stringProp name="HTTPSampler.path">/wams/api/allocation-questions</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <stringProp name="HTTPSampler.method">GET</stringProp>
@@ -1110,7 +853,7 @@ vars.put(&quot;permissionIdsArray&quot;, formattedIdsArray)
             </elementProp>
           </HTTPSamplerProxy>
           <hashTree/>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="AllocationQuestions-POST">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="AllocationQuestions-POST" enabled="true">
             <stringProp name="HTTPSampler.path">/wams/api/allocation-questions</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <stringProp name="HTTPSampler.method">POST</stringProp>
@@ -1143,7 +886,7 @@ vars.put(&quot;permissionIdsArray&quot;, formattedIdsArray)
             </JSONPostProcessor>
             <hashTree/>
           </hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="AllocationQuestions-GET-ONE">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="AllocationQuestions-GET-ONE" enabled="true">
             <stringProp name="HTTPSampler.path">/wams/api/allocation-questions/${allocationQuestionId}</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <stringProp name="HTTPSampler.method">GET</stringProp>
@@ -1154,7 +897,7 @@ vars.put(&quot;permissionIdsArray&quot;, formattedIdsArray)
             </elementProp>
           </HTTPSamplerProxy>
           <hashTree/>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="AllocationQuestions-PUT">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="AllocationQuestions-PUT" enabled="true">
             <stringProp name="HTTPSampler.path">/wams/api/allocation-questions/${allocationQuestionId}</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <stringProp name="HTTPSampler.method">PUT</stringProp>
@@ -1180,7 +923,7 @@ vars.put(&quot;permissionIdsArray&quot;, formattedIdsArray)
             </elementProp>
           </HTTPSamplerProxy>
           <hashTree/>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="AllocationQuestions-DELETE">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="AllocationQuestions-DELETE" enabled="true">
             <stringProp name="HTTPSampler.path">/wams/api/allocation-questions/${allocationQuestionId}</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <stringProp name="HTTPSampler.method">DELETE</stringProp>
@@ -1215,9 +958,9 @@ vars.put(&quot;permissionIdsArray&quot;, formattedIdsArray)
           <stringProp name="TestPlan.comments">AllocationQuestionActivityType</stringProp>
         </GenericController>
         <hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Pre-Condition"/>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Pre-Condition" enabled="true"/>
           <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get ActivityType Ids">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get ActivityType Ids" enabled="true">
               <stringProp name="HTTPSampler.path">/wams/api/activity-types</stringProp>
               <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
               <stringProp name="HTTPSampler.method">GET</stringProp>
@@ -1236,14 +979,14 @@ vars.put(&quot;permissionIdsArray&quot;, formattedIdsArray)
               </elementProp>
             </HTTPSamplerProxy>
             <hashTree>
-              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Get Extract ActivityTypeId">
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Get Extract ActivityTypeId" enabled="true">
                 <stringProp name="JSONPostProcessor.referenceNames">activityTypeId</stringProp>
                 <stringProp name="JSONPostProcessor.jsonPathExprs">$.items[0].id</stringProp>
                 <stringProp name="JSONPostProcessor.match_numbers">+1</stringProp>
               </JSONPostProcessor>
               <hashTree/>
             </hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="AllocationQuestionActivityType 1-POST">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="AllocationQuestionActivityType 1-POST" enabled="true">
               <stringProp name="HTTPSampler.path">/wams/api/allocation-questions</stringProp>
               <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
               <stringProp name="HTTPSampler.method">POST</stringProp>
@@ -1268,14 +1011,14 @@ vars.put(&quot;permissionIdsArray&quot;, formattedIdsArray)
               </elementProp>
             </HTTPSamplerProxy>
             <hashTree>
-              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Get Extract AllocationQuestionActivityType ID_1">
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Get Extract AllocationQuestionActivityType ID_1" enabled="true">
                 <stringProp name="JSONPostProcessor.referenceNames">allocationQuestionActivityTypeId1</stringProp>
                 <stringProp name="JSONPostProcessor.jsonPathExprs">$.id</stringProp>
                 <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
               </JSONPostProcessor>
               <hashTree/>
             </hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="AllocationQuestionActivityType 2-POST">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="AllocationQuestionActivityType 2-POST" enabled="true">
               <stringProp name="HTTPSampler.path">/wams/api/allocation-questions</stringProp>
               <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
               <stringProp name="HTTPSampler.method">POST</stringProp>
@@ -1300,7 +1043,7 @@ vars.put(&quot;permissionIdsArray&quot;, formattedIdsArray)
               </elementProp>
             </HTTPSamplerProxy>
             <hashTree>
-              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Get Extract AllocationQuestionActivityType ID_2">
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Get Extract AllocationQuestionActivityType ID_2" enabled="true">
                 <stringProp name="JSONPostProcessor.referenceNames">allocationQuestionActivityTypeId2</stringProp>
                 <stringProp name="JSONPostProcessor.jsonPathExprs">$.id</stringProp>
                 <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
@@ -1348,7 +1091,7 @@ vars.put(&quot;permissionIdsArray&quot;, formattedIdsArray)
               <hashTree/>
             </hashTree>
           </hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="AllocationQuestionActivityType-GET-ALL">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="AllocationQuestionActivityType-GET-ALL" enabled="true">
             <stringProp name="HTTPSampler.path">/wams/api/allocation-question-activity-types</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <stringProp name="HTTPSampler.method">GET</stringProp>
@@ -1381,7 +1124,7 @@ vars.put(&quot;permissionIdsArray&quot;, formattedIdsArray)
             </elementProp>
           </HTTPSamplerProxy>
           <hashTree/>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="AllocationQuestionActivityType-POST">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="AllocationQuestionActivityType-POST" enabled="true">
             <stringProp name="HTTPSampler.path">/wams/api/allocation-questions</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <stringProp name="HTTPSampler.method">POST</stringProp>
@@ -1406,14 +1149,14 @@ vars.put(&quot;permissionIdsArray&quot;, formattedIdsArray)
             </elementProp>
           </HTTPSamplerProxy>
           <hashTree>
-            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Get Extract AllocationQuestionActivityType ID" enabled="true">
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Get Extract AllocationQuestionActivityType ID">
               <stringProp name="JSONPostProcessor.referenceNames">allocationQuestionActivityTypeId</stringProp>
               <stringProp name="JSONPostProcessor.jsonPathExprs">$.id</stringProp>
               <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
             </JSONPostProcessor>
             <hashTree/>
           </hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="AllocationQuestionActivityTypeConnectedComponents-GET-ALL">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="AllocationQuestionActivityTypeConnectedComponents-GET-ALL" enabled="true">
             <stringProp name="HTTPSampler.path">/wams/api/allocation-question-activity-types/connected-components</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <stringProp name="HTTPSampler.method">GET</stringProp>
@@ -1472,7 +1215,7 @@ vars.put(&quot;permissionIdsArray&quot;, formattedIdsArray)
             </elementProp>
           </HTTPSamplerProxy>
           <hashTree/>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="AllocationQuestionActivityType-PUT">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="AllocationQuestionActivityType-PUT" enabled="true">
             <stringProp name="HTTPSampler.path">/wams/api/allocation-questions/${allocationQuestionActivityTypeId}</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <stringProp name="HTTPSampler.method">PUT</stringProp>
@@ -1494,7 +1237,7 @@ vars.put(&quot;permissionIdsArray&quot;, formattedIdsArray)
             </elementProp>
           </HTTPSamplerProxy>
           <hashTree/>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="AllocationQuestionActivityType-DELETE">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="AllocationQuestionActivityType-DELETE" enabled="true">
             <stringProp name="HTTPSampler.path">/wams/api/allocation-questions/${allocationQuestionActivityTypeId}</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <stringProp name="HTTPSampler.method">DELETE</stringProp>
@@ -1505,7 +1248,7 @@ vars.put(&quot;permissionIdsArray&quot;, formattedIdsArray)
             </elementProp>
           </HTTPSamplerProxy>
           <hashTree/>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="AllocationQuestionActivityType BULK CONNECT">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="AllocationQuestionActivityType BULK CONNECT" enabled="true">
             <stringProp name="HTTPSampler.path">/wams/api/allocation-question-activity-types/bulk-connect?periodVersion=${gobalPeriodVersionId}</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <stringProp name="HTTPSampler.method">POST</stringProp>
@@ -1536,7 +1279,7 @@ vars.put(&quot;permissionIdsArray&quot;, formattedIdsArray)
             </elementProp>
           </HTTPSamplerProxy>
           <hashTree/>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="AllocationQuestionActivityTypeConnectedComponents-GET-ALL">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="AllocationQuestionActivityTypeConnectedComponents-GET-ALL" enabled="true">
             <stringProp name="HTTPSampler.path">/wams/api/allocation-question-activity-types</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <stringProp name="HTTPSampler.method">GET</stringProp>
@@ -1583,14 +1326,14 @@ vars.put(&quot;permissionIdsArray&quot;, formattedIdsArray)
             </elementProp>
           </HTTPSamplerProxy>
           <hashTree>
-            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Get Extract Connected Allocation Ids">
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Get Extract Connected Allocation Ids" enabled="true">
               <stringProp name="JSONPostProcessor.referenceNames">connectedId</stringProp>
               <stringProp name="JSONPostProcessor.jsonPathExprs">$.items[*].id</stringProp>
               <stringProp name="JSONPostProcessor.match_numbers">-1</stringProp>
             </JSONPostProcessor>
             <hashTree/>
           </hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="AllocationQuestionActivityType-BULK-UPDATE">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="AllocationQuestionActivityType-BULK-UPDATE" enabled="true">
             <stringProp name="HTTPSampler.path">/wams/api/allocation-question-activity-types/bulk-update?periodVersion=${gobalPeriodVersionId}</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <stringProp name="HTTPSampler.method">POST</stringProp>
@@ -1623,7 +1366,7 @@ vars.put(&quot;permissionIdsArray&quot;, formattedIdsArray)
             </elementProp>
           </HTTPSamplerProxy>
           <hashTree/>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="AllocationQuestionActivityType-BULK-DELETE">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="AllocationQuestionActivityType-BULK-DELETE" enabled="true">
             <stringProp name="HTTPSampler.path">/wams/api/allocation-question-activity-types/bulk-delete</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <stringProp name="HTTPSampler.method">POST</stringProp>
@@ -1652,9 +1395,9 @@ vars.put(&quot;permissionIdsArray&quot;, formattedIdsArray)
             </elementProp>
           </HTTPSamplerProxy>
           <hashTree/>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Post-Condition"/>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Post-Condition" enabled="true"/>
           <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="AllocationQuestionActivityType1-DELETE">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="AllocationQuestionActivityType1-DELETE" enabled="true">
               <stringProp name="HTTPSampler.path">/wams/api/allocation-questions/${allocationQuestionActivityTypeId1}</stringProp>
               <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
               <stringProp name="HTTPSampler.method">DELETE</stringProp>
@@ -1680,7 +1423,7 @@ vars.put(&quot;permissionIdsArray&quot;, formattedIdsArray)
         </hashTree>
         <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="TagSet Targets"/>
         <hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="TageSetTargets-GET-ALL">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="TageSetTargets-GET-ALL" enabled="true">
             <stringProp name="HTTPSampler.path">/wams/api/tag-set-targets</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <stringProp name="HTTPSampler.method">GET</stringProp>
@@ -1738,9 +1481,9 @@ vars.put(&quot;permissionIdsArray&quot;, formattedIdsArray)
         </hashTree>
         <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="AllocationQuestionConditionalRule"/>
         <hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Pre-Conditions"/>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Pre-Conditions" enabled="true"/>
           <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get ActivityType Ids">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get ActivityType Ids" enabled="true">
               <stringProp name="HTTPSampler.path">/wams/api/activity-types</stringProp>
               <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
               <stringProp name="HTTPSampler.method">GET</stringProp>
@@ -1759,14 +1502,14 @@ vars.put(&quot;permissionIdsArray&quot;, formattedIdsArray)
               </elementProp>
             </HTTPSamplerProxy>
             <hashTree>
-              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Get Extract ActivityTypeId">
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Get Extract ActivityTypeId" enabled="true">
                 <stringProp name="JSONPostProcessor.referenceNames">ruleActivityTypeId</stringProp>
                 <stringProp name="JSONPostProcessor.jsonPathExprs">$.items[0].id</stringProp>
                 <stringProp name="JSONPostProcessor.match_numbers">+1</stringProp>
               </JSONPostProcessor>
               <hashTree/>
             </hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="AllocationQuestionActivityTypeRule 1-POST">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="AllocationQuestionActivityTypeRule 1-POST" enabled="true">
               <stringProp name="HTTPSampler.path">/wams/api/allocation-questions</stringProp>
               <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
               <stringProp name="HTTPSampler.method">POST</stringProp>
@@ -1791,14 +1534,14 @@ vars.put(&quot;permissionIdsArray&quot;, formattedIdsArray)
               </elementProp>
             </HTTPSamplerProxy>
             <hashTree>
-              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Get Extract AllocationQuestionActivityType RuleID_1">
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Get Extract AllocationQuestionActivityType RuleID_1" enabled="true">
                 <stringProp name="JSONPostProcessor.referenceNames">allocationQuestionActivityTypeRuleId1</stringProp>
                 <stringProp name="JSONPostProcessor.jsonPathExprs">$.id</stringProp>
                 <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
               </JSONPostProcessor>
               <hashTree/>
             </hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="AllocationQuestionActivityTypeRule 2-POST">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="AllocationQuestionActivityTypeRule 2-POST" enabled="true">
               <stringProp name="HTTPSampler.path">/wams/api/allocation-questions</stringProp>
               <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
               <stringProp name="HTTPSampler.method">POST</stringProp>
@@ -1823,7 +1566,7 @@ vars.put(&quot;permissionIdsArray&quot;, formattedIdsArray)
               </elementProp>
             </HTTPSamplerProxy>
             <hashTree>
-              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Get Extract AllocationQuestionActivityType RuleID_2">
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Get Extract AllocationQuestionActivityType RuleID_2" enabled="true">
                 <stringProp name="JSONPostProcessor.referenceNames">allocationQuestionActivityTypeRuleId2</stringProp>
                 <stringProp name="JSONPostProcessor.jsonPathExprs">$.id</stringProp>
                 <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
@@ -1909,7 +1652,7 @@ vars.put(&quot;permissionIdsArray&quot;, formattedIdsArray)
             </elementProp>
           </HTTPSamplerProxy>
           <hashTree>
-            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Get Extract Connected Allocation Ids">
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Get Extract Connected Allocation Ids" enabled="true">
               <stringProp name="JSONPostProcessor.referenceNames">ruleConnectedId</stringProp>
               <stringProp name="JSONPostProcessor.jsonPathExprs">$.items[*].id</stringProp>
               <stringProp name="JSONPostProcessor.match_numbers">-1</stringProp>
@@ -1949,7 +1692,7 @@ vars.put(&quot;permissionIdsArray&quot;, formattedIdsArray)
             </elementProp>
           </HTTPSamplerProxy>
           <hashTree/>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="AllocationQuestionConditionalRule - POST">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="AllocationQuestionConditionalRule - POST" enabled="true">
             <stringProp name="HTTPSampler.path">/wams/api/allocation-question-conditional-rules?periodVersion=${gobalPeriodVersionId}</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <stringProp name="HTTPSampler.method">POST</stringProp>
@@ -1981,14 +1724,14 @@ vars.put(&quot;permissionIdsArray&quot;, formattedIdsArray)
             </elementProp>
           </HTTPSamplerProxy>
           <hashTree>
-            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Get Extract AllocationQuestionActivityType RuleId">
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Get Extract AllocationQuestionActivityType RuleId" enabled="true">
               <stringProp name="JSONPostProcessor.referenceNames">allocationQuestionRuleId</stringProp>
               <stringProp name="JSONPostProcessor.jsonPathExprs">$.id</stringProp>
               <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
             </JSONPostProcessor>
             <hashTree/>
           </hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="AllocationQuestionConditionalRule - GET-ONE">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="AllocationQuestionConditionalRule - GET-ONE" enabled="true">
             <stringProp name="HTTPSampler.path">/wams/api/allocation-question-conditional-rules/${allocationQuestionRuleId}</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <stringProp name="HTTPSampler.method">GET</stringProp>
@@ -2086,9 +1829,9 @@ vars.put(&quot;permissionIdsArray&quot;, formattedIdsArray)
             </elementProp>
           </HTTPSamplerProxy>
           <hashTree/>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Post-Condition"/>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Post-Condition" enabled="true"/>
           <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="AllocationQuestionActivityTypeRule1-DELETE">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="AllocationQuestionActivityTypeRule1-DELETE" enabled="true">
               <stringProp name="HTTPSampler.path">/wams/api/allocation-questions/${allocationQuestionActivityTypeRuleId1}</stringProp>
               <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
               <stringProp name="HTTPSampler.method">DELETE</stringProp>
@@ -2099,7 +1842,7 @@ vars.put(&quot;permissionIdsArray&quot;, formattedIdsArray)
               </elementProp>
             </HTTPSamplerProxy>
             <hashTree/>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="AllocationQuestionActivityTypeRule2-DELETE">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="AllocationQuestionActivityTypeRule2-DELETE" enabled="true">
               <stringProp name="HTTPSampler.path">/wams/api/allocation-questions/${allocationQuestionActivityTypeRuleId2}</stringProp>
               <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
               <stringProp name="HTTPSampler.method">DELETE</stringProp>
@@ -2111,6 +1854,452 @@ vars.put(&quot;permissionIdsArray&quot;, formattedIdsArray)
             </HTTPSamplerProxy>
             <hashTree/>
           </hashTree>
+        </hashTree>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="RulesetsForAllocations"/>
+        <hashTree>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Pre-Conditions"/>
+          <hashTree>
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="RulesetsForAllocations - POST">
+              <stringProp name="HTTPSampler.path">/wams/api/rule-based-allocations</stringProp>
+              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+              <stringProp name="HTTPSampler.method">POST</stringProp>
+              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+              <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+              <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+                <collectionProp name="Arguments.arguments">
+                  <elementProp name="" elementType="HTTPArgument">
+                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                    <stringProp name="Argument.value">{&#xd;
+  &quot;name&quot;: &quot;Rule PreConditioned&quot;,&#xd;
+  &quot;code&quot;: &quot;Rule PreConditioned&quot;,&#xd;
+  &quot;periodVersion&quot;: &quot;${gobalPeriodVersionId}&quot;&#xd;
+}</stringProp>
+                    <stringProp name="Argument.metadata">=</stringProp>
+                  </elementProp>
+                </collectionProp>
+              </elementProp>
+            </HTTPSamplerProxy>
+            <hashTree>
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Get Extract Rule Id">
+                <stringProp name="JSONPostProcessor.referenceNames">ruleAllocateNowId</stringProp>
+                <stringProp name="JSONPostProcessor.jsonPathExprs">$.id</stringProp>
+                <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+              </JSONPostProcessor>
+              <hashTree/>
+            </hashTree>
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="RuleSetUsers- GET ALL">
+              <stringProp name="HTTPSampler.path">/wams/api/period-version-users/rule-based-allocation-users</stringProp>
+              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+              <stringProp name="HTTPSampler.method">GET</stringProp>
+              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+              <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+              <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+                <collectionProp name="Arguments.arguments">
+                  <elementProp name="user.anonymised" elementType="HTTPArgument">
+                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                    <stringProp name="Argument.value">false</stringProp>
+                    <stringProp name="Argument.metadata">=</stringProp>
+                    <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                    <stringProp name="Argument.name">user.anonymised</stringProp>
+                  </elementProp>
+                  <elementProp name="periodVersion" elementType="HTTPArgument">
+                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                    <stringProp name="Argument.value">${gobalPeriodVersionId}</stringProp>
+                    <stringProp name="Argument.metadata">=</stringProp>
+                    <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                    <stringProp name="Argument.name">periodVersion</stringProp>
+                  </elementProp>
+                  <elementProp name="exists[periodVersionOrganisationItemUsers]" elementType="HTTPArgument">
+                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                    <stringProp name="Argument.value">true</stringProp>
+                    <stringProp name="Argument.metadata">=</stringProp>
+                    <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                    <stringProp name="Argument.name">exists[periodVersionOrganisationItemUsers]</stringProp>
+                  </elementProp>
+                  <elementProp name="periodVersionOrganisationItemUsers.allocatable" elementType="HTTPArgument">
+                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                    <stringProp name="Argument.value">true</stringProp>
+                    <stringProp name="Argument.metadata">=</stringProp>
+                    <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                    <stringProp name="Argument.name">periodVersionOrganisationItemUsers.allocatable</stringProp>
+                  </elementProp>
+                  <elementProp name="pagination" elementType="HTTPArgument">
+                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                    <stringProp name="Argument.value">false</stringProp>
+                    <stringProp name="Argument.metadata">=</stringProp>
+                    <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                    <stringProp name="Argument.name">pagination</stringProp>
+                  </elementProp>
+                </collectionProp>
+              </elementProp>
+            </HTTPSamplerProxy>
+            <hashTree>
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Get Extract Rule User Ids">
+                <stringProp name="JSONPostProcessor.referenceNames">ruleUserId</stringProp>
+                <stringProp name="JSONPostProcessor.jsonPathExprs">$.items[0].id</stringProp>
+                <stringProp name="JSONPostProcessor.match_numbers">+</stringProp>
+              </JSONPostProcessor>
+              <hashTree/>
+            </hashTree>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="RulesetsForAllocations - POST">
+            <stringProp name="HTTPSampler.path">/wams/api/rule-based-allocations</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">{&#xd;
+  &quot;name&quot;: &quot;Rule New&quot;,&#xd;
+  &quot;code&quot;: &quot;Rule New&quot;,&#xd;
+  &quot;periodVersion&quot;: &quot;${gobalPeriodVersionId}&quot;&#xd;
+}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Get Extract Rule Id">
+              <stringProp name="JSONPostProcessor.referenceNames">ruleId</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.id</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="RulesetsForAllocations - GET ALL">
+            <stringProp name="HTTPSampler.path">/wams/api/rule-based-allocations</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="pagination" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">false</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">pagination</stringProp>
+                </elementProp>
+                <elementProp name="periodVersion" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">${gobalPeriodVersionId}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">periodVersion</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+          </HTTPSamplerProxy>
+          <hashTree/>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="RulesetsForAllocations - GET ONE">
+            <stringProp name="HTTPSampler.path">/wams/api/rule-based-allocations/${ruleId}</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value"></stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+          </HTTPSamplerProxy>
+          <hashTree/>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="RulesetsForAllocations - PUT">
+            <stringProp name="HTTPSampler.path">/wams/api/rule-based-allocations/${ruleId}</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <stringProp name="HTTPSampler.method">PUT</stringProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">{&#xd;
+  &quot;isDraft&quot;: true,&#xd;
+  &quot;name&quot;: &quot;Rule Update&quot;,&#xd;
+  &quot;code&quot;: &quot;Rule Update&quot;,&#xd;
+  &quot;triggerType&quot;: &quot;none&quot;,&#xd;
+  &quot;triggerAction&quot;: null,&#xd;
+  &quot;triggerFrequency&quot;: null,&#xd;
+  &quot;triggerOrdinal&quot;: null,&#xd;
+  &quot;triggerEndDate&quot;: null,&#xd;
+  &quot;triggerStartDate&quot;: null,&#xd;
+  &quot;triggerOrdinalDay&quot;: null,&#xd;
+  &quot;triggerOrdinalMonth&quot;: null,&#xd;
+  &quot;triggerSpecificDayOfMonth&quot;: null,&#xd;
+  &quot;triggerEndAfterOccurrences&quot;: null,&#xd;
+  &quot;triggerTime&quot;: null,&#xd;
+  &quot;activities&quot;: [],&#xd;
+  &quot;periodVersionOrganisationItemUsers&quot;: [],&#xd;
+  &quot;ruleBasedAllocationRuleSets&quot;: [],&#xd;
+  &quot;activityOrganisationItems&quot;: []&#xd;
+}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+          </HTTPSamplerProxy>
+          <hashTree/>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="RulesetsForAllocations - DELETE">
+            <stringProp name="HTTPSampler.path">/wams/api/rule-based-allocations/${ruleId}?periodVersion=${gobalPeriodVersionId}</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <stringProp name="HTTPSampler.method">DELETE</stringProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+              <collectionProp name="Arguments.arguments"/>
+            </elementProp>
+          </HTTPSamplerProxy>
+          <hashTree/>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="RulesetsForAllocationsAllocateNow - PUT">
+            <stringProp name="HTTPSampler.path">/wams/api/rule-based-allocations/${ruleAllocateNowId}/allocate-now</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <stringProp name="HTTPSampler.method">PUT</stringProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">&#xd;
+</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+          </HTTPSamplerProxy>
+          <hashTree/>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="RulesetsForAllocationsUsers - PUT">
+            <stringProp name="HTTPSampler.path">/wams/api/rule-based-allocations/${ruleId}/rule-users</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <stringProp name="HTTPSampler.method">PUT</stringProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+              <collectionProp name="Arguments.arguments"/>
+            </elementProp>
+          </HTTPSamplerProxy>
+          <hashTree/>
+        </hashTree>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Settings"/>
+        <hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Settings - GET ALL">
+            <stringProp name="HTTPSampler.path">/wams/api/settings</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+              <collectionProp name="Arguments.arguments"/>
+            </elementProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Get Extract Setting Ids">
+              <stringProp name="JSONPostProcessor.referenceNames">settingIds</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.items[*].id</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers">-1</stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="SettingsBatchUpdate - POST">
+            <stringProp name="HTTPSampler.path">/wams/api/settings/batch-update</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">{&#xd;
+  &quot;items&quot;: [&#xd;
+    {&#xd;
+      &quot;id&quot;: &quot;6043d4ef-e6c4-41df-95a0-937c3915bdc4&quot;,&#xd;
+      &quot;value&quot;: true&#xd;
+    }&#xd;
+  ]&#xd;
+}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+          </HTTPSamplerProxy>
+          <hashTree/>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Settings - GET ONE" enabled="false">
+            <stringProp name="HTTPSampler.path">/wams/api/settings/${settingIds_2}</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+              <collectionProp name="Arguments.arguments"/>
+            </elementProp>
+          </HTTPSamplerProxy>
+          <hashTree/>
+        </hashTree>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Time Component"/>
+        <hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Time Component- GET ALL">
+            <stringProp name="HTTPSampler.path">/wams/api/time-components</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="periodVersion" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">${gobalPeriodVersionId}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">periodVersion</stringProp>
+                </elementProp>
+                <elementProp name="pagination" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">false</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">pagination</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Get Extract Time Component Ids">
+              <stringProp name="JSONPostProcessor.referenceNames">timeComponentId</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.items[0].id</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers">+1</stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Time Component- GET ONE">
+            <stringProp name="HTTPSampler.path">/wams/api/time-components/${timeComponentId}</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="periodVersion" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">${gobalPeriodVersionId}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">periodVersion</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+          </HTTPSamplerProxy>
+          <hashTree/>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Time Component- PUT">
+            <stringProp name="HTTPSampler.path">/wams/api/time-components/${timeComponentId}</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <stringProp name="HTTPSampler.method">PUT</stringProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">{&#xd;
+  &quot;defaultValue&quot;: 6&#xd;
+}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+          </HTTPSamplerProxy>
+          <hashTree/>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="TimeComponentOverrides - GET ALL">
+            <stringProp name="HTTPSampler.path">/wams/api/organisation-item-time-component-overrides</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="retrieveChildren" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">true</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">retrieveChildren</stringProp>
+                </elementProp>
+                <elementProp name="periodVersion" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">${gobalPeriodVersionId}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">periodVersion</stringProp>
+                </elementProp>
+                <elementProp name="isReverted" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">false</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">isReverted</stringProp>
+                </elementProp>
+                <elementProp name="isPlaceholder" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">false</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">isPlaceholder</stringProp>
+                </elementProp>
+                <elementProp name="pagination" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">false</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">pagination</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+          </HTTPSamplerProxy>
+          <hashTree/>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="TimeComponentQuickOverrides - GET ALL">
+            <stringProp name="HTTPSampler.path">/wams/api/time-components/quick-overrides</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="periodVersion" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">${gobalPeriodVersionId}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">periodVersion</stringProp>
+                </elementProp>
+                <elementProp name="organisationItem" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">82ffa4c6-9c6c-4f42-bac6-23bfca7affec</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">organisationItem</stringProp>
+                </elementProp>
+                <elementProp name="pagination" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">false</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">pagination</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+          </HTTPSamplerProxy>
+          <hashTree/>
         </hashTree>
         <DebugSampler guiclass="TestBeanGUI" testclass="DebugSampler" testname="Debug Sampler">
           <boolProp name="displayJMeterProperties">false</boolProp>
